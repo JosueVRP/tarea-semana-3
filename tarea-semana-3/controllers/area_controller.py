@@ -1,6 +1,7 @@
-from flask_restful import Resource
+from flask_restful import Resource,request
 from db import conexion
 from models.area_model import AreaModel
+from dtos.area_dto import AreaRequestDto, AreaResponseDto
 
 class AreaController(Resource):
     def get(self):
@@ -10,6 +11,20 @@ class AreaController(Resource):
         return {
             'content': data
         }
+    
+    def get(self, id):
+        area = conexion.session.query(AreaModel).get(id)
+
+        if area:
+            dto = AreaResponseDto()
+            data = dto.dump(area)
+            return {
+                'content': data
+            }
+        else:
+            return {
+                'message': 'El área no existe'
+            }, 404
 
 
     def post(self):

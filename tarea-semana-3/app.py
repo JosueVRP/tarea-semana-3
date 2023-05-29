@@ -16,7 +16,7 @@ conexion.init_app(app)
 
 Migrate(app,conexion)
 
-api.add_resource(AreaController,'/areas')
+api.add_resource(AreaController,'/areas','/areas/<id>')
 
 api.add_resource(EmployeeController,'/empleado')
 
